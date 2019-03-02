@@ -17,22 +17,55 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        throw new NotImplementedException();
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i : array) {
+            list.add(i * 3);
+        }
+        return list;
     }
 
     public List<String> mapLetter() {
-        throw new NotImplementedException();
+        ArrayList<String> list = new ArrayList<>();
+        for (int i : array) {
+            list.add(letterList.get(i - 1));
+        }
+        return list;
     }
 
     public List<String> mapLetters() {
-        throw new NotImplementedException();
+        ArrayList<String> list = new ArrayList<>();
+        for (int i : array) {
+            String letters = i <= 26 ? letterList.get(i - 1) : letterList.get(i / 26 - 1) + letterList.get(i % 26 - 1);
+            list.add(letters);
+        }
+        return list;
     }
 
     public List<Integer> sortFromBig() {
-        throw new NotImplementedException();
+        Integer[] arr = (Integer[]) array.toArray();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length - 1; j++) {
+                if (arr[i] > arr[j]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return Arrays.asList(arr);
     }
 
     public List<Integer> sortFromSmall() {
-        throw new NotImplementedException();
+        Integer[] arr = (Integer[]) array.toArray();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length - 1; j++) {
+                if (arr[i] < arr[j]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return Arrays.asList(arr);
     }
 }
