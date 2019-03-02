@@ -6,26 +6,63 @@ import java.util.List;
 
 public class CollectionOperator {
     public List<Integer> getListByInterval(int left, int right) {
-        throw new NotImplementedException();
+        int firstNum = left < right ? left : right;
+        int lastNum = left >= right ? left : right;
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = firstNum; i <= lastNum; i++) {
+            list.add(i);
+        }
+        return list;
     }
 
     public List<Integer> getEvenListByIntervals(int left, int right) {
-        throw new NotImplementedException();
+        int firstNum = left < right ? left : right;
+        int lastNum = left >= right ? left : right;
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = firstNum; i <= lastNum; i++) {
+            if (i % 2 == 0) {
+                list.add(i);
+            }
+        }
+        return list;
     }
 
     public List<Integer> popEvenElments(int[] array) {
-        throw new NotImplementedException();
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int num : array) {
+            if (num % 2 == 0) {
+                list.add(num);
+            }
+        }
+        return list;
     }
 
     public int popLastElment(int[] array) {
-        throw new NotImplementedException();
+        return array[array.length - 1];
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
-        throw new NotImplementedException();
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i : firstArray) {
+            for (int j : secondArray) {
+                if (i == j) {
+                    list.add(i);
+                }
+            }
+        }
+        return list;
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
-        throw new NotImplementedException();
+        ArrayList<Integer> list = new ArrayList<>();
+        for (Integer numOne : firstArray) {
+            list.add(numOne);
+        }
+        for (Integer numTwo : secondArray) {
+            if (!Arrays.asList(firstArray).contains(numTwo)) {
+                list.add(numTwo);
+            }
+        }
+        return list;
     }
 }
