@@ -1,8 +1,10 @@
 package com.thoughtworks.collection;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class CollectionOperator {
     public List<Integer> getListByInterval(int left, int right) {
@@ -16,25 +18,13 @@ public class CollectionOperator {
     }
 
     public List<Integer> getEvenListByIntervals(int left, int right) {
-        int firstNum = left < right ? left : right;
-        int lastNum = left >= right ? left : right;
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i = firstNum; i <= lastNum; i++) {
-            if (i % 2 == 0) {
-                list.add(i);
-            }
-        }
-        return list;
+        List<Integer> list = getListByInterval(left, right);
+        return list.stream().filter(n -> n % 2 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> popEvenElments(int[] array) {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int num : array) {
-            if (num % 2 == 0) {
-                list.add(num);
-            }
-        }
-        return list;
+        return Arrays.stream(array).filter(n -> n % 2 == 0).boxed().collect(Collectors.toList());
+
     }
 
     public int popLastElment(int[] array) {
@@ -42,27 +32,13 @@ public class CollectionOperator {
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i : firstArray) {
-            for (int j : secondArray) {
-                if (i == j) {
-                    list.add(i);
-                }
-            }
-        }
-        return list;
+        List<Integer> list = Arrays.stream(secondArray).boxed().collect(Collectors.toList());
+        return Arrays.stream(firstArray).filter(n -> list.contains(n)).boxed().collect(Collectors.toList());
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (Integer numOne : firstArray) {
-            list.add(numOne);
-        }
-        for (Integer numTwo : secondArray) {
-            if (!Arrays.asList(firstArray).contains(numTwo)) {
-                list.add(numTwo);
-            }
-        }
+        List<Integer> list = Arrays.stream(firstArray).collect(Collectors.toList());
+        list.addAll(Arrays.stream(secondArray).filter(n -> !list.contains(n)).collect(Collectors.toList()));
         return list;
     }
 }
