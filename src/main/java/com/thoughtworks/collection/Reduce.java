@@ -1,8 +1,7 @@
 package com.thoughtworks.collection;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Reduce {
 
@@ -13,31 +12,15 @@ public class Reduce {
     }
 
     public int getMaximum() {
-        int max = arrayList.get(0);
-        for (int i = 1; i < arrayList.size(); i++) {
-            if (arrayList.get(i) > max) {
-                max = arrayList.get(i);
-            }
-        }
-        return max;
+        return arrayList.stream().max(Integer::compare).get();
     }
 
     public double getMinimum() {
-        int min = arrayList.get(0);
-        for (int i = 1; i < arrayList.size(); i++) {
-            if (arrayList.get(i) < min) {
-                min = arrayList.get(i);
-            }
-        }
-        return min;
+        return arrayList.stream().min(Integer::compare).get();
     }
 
     public double getAverage() {
-
-        double sum = 0;
-        for (int i : arrayList) {
-            sum += i;
-        }
+        double sum = arrayList.stream().reduce(0, (a, b) -> a + b);
         return sum / arrayList.size();
     }
 
@@ -46,29 +29,20 @@ public class Reduce {
     }
 
     public int getFirstEven() {
-        for (int i : arrayList) {
-            if (i % 2 == 0) {
-                return i;
-            }
-        }
-        return -1;
+        return arrayList.stream().filter(i -> i % 2 == 0).findFirst().get();
     }
 
     public int getIndexOfFirstEven() {
-        for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i) % 2 == 0) {
-                return i;
-            }
-        }
-        return -1;
+        int firstEven = getFirstEven();
+        return arrayList.indexOf(firstEven);
     }
 
-    public boolean isEqual(List<Integer> arrayList) {
-        if (arrayList.size() != arrayList2.size()) {
+    public boolean isEqual(List<Integer> arrList) {
+        if (arrayList.size() != arrList.size()) {
             return false;
         }
         for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i) != arrayList2.get(i))
+            if (arrayList.get(i) != arrList.get(i))
                 return false;
         }
         return true;
@@ -83,20 +57,11 @@ public class Reduce {
     }
 
     public int getLastOdd() {
-        for (int i = arrayList.size() - 1; i > 0; i--) {
-            if (arrayList.get(i) % 2 != 0) {
-                return arrayList.get(i);
-            }
-        }
-        return 0;
+        List<Integer> list = arrayList.stream().filter(i -> i % 2 != 0).collect(Collectors.toList());
+        return list.get(list.size() - 1);
     }
 
     public int getIndexOfLastOdd() {
-        for (int i = arrayList.size() - 1; i > 0; i--) {
-            if (arrayList.get(i) % 2 != 0) {
-                return i;
-            }
-        }
-        return -1;
+        return arrayList.indexOf(getLastOdd());
     }
 }
