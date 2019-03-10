@@ -1,9 +1,7 @@
 package com.thoughtworks.collection;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Filter {
 
@@ -14,44 +12,19 @@ public class Filter {
     }
 
     public List<Integer> filterEven() {
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i : arrayList) {
-            if (i % 2 == 0) {
-                list.add(i);
-            }
-        }
-        return list;
+        return array.stream().filter(n -> n % 2 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> filterMultipleOfThree() {
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i : arrayList) {
-            if (i % 3 == 0) {
-                list.add(i);
-            }
-        }
-        return list;
+        return array.stream().filter(n -> n % 3 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> getCommonElements(List<Integer> firstList, List<Integer> secondList) {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (Integer num : firstList) {
-            if (secondList.contains(num)) {
-                list.add(num);
-            }
-        }
-        return list;
+        return firstList.stream().filter(n -> secondList.contains(n)).collect(Collectors.toList());
     }
 
     public List<Integer> getDifferentElements() {
-        HashSet<Integer> set = new HashSet<Integer>();
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i : arrayList) {
-            set.add(i);
-        }
-        for (int i : set) {
-            list.add(i);
-        }
-        return list;
+        return array.stream().distinct().collect(Collectors.toList());
+
     }
 }
