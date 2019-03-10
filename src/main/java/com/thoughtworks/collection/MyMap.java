@@ -1,9 +1,10 @@
 package com.thoughtworks.collection;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyMap {
 
@@ -17,19 +18,11 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i : array) {
-            list.add(i * 3);
-        }
-        return list;
+        return array.stream().map(n -> n * 3).collect(Collectors.toList());
     }
 
     public List<String> mapLetter() {
-        ArrayList<String> list = new ArrayList<>();
-        for (int i : array) {
-            list.add(letterList.get(i - 1));
-        }
-        return list;
+        return array.stream().map(n -> letterList.get(n - 1)).collect(Collectors.toList());
     }
 
     public List<String> mapLetters() {
@@ -42,30 +35,10 @@ public class MyMap {
     }
 
     public List<Integer> sortFromBig() {
-        Integer[] arr = (Integer[]) array.toArray();
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length - 1; j++) {
-                if (arr[i] > arr[j]) {
-                    int temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-                }
-            }
-        }
-        return Arrays.asList(arr);
+        return array.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
     }
 
     public List<Integer> sortFromSmall() {
-        Integer[] arr = (Integer[]) array.toArray();
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length - 1; j++) {
-                if (arr[i] < arr[j]) {
-                    int temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-                }
-            }
-        }
-        return Arrays.asList(arr);
+        return array.stream().sorted().collect(Collectors.toList());
     }
 }
